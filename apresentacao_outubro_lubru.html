@@ -754,6 +754,7 @@
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
+            display: none !important;
         }
 
         .login-card {
@@ -987,11 +988,11 @@
             <h2 class="login-title">Área da Diretoria</h2>
             <p class="login-subtitle">Lubru Odontologia • Relatório de Inteligência & Tráfego Pago</p>
             
-            <form id="loginForm" onsubmit="event.preventDefault(); unlockDashboard();">
+            <form id="loginForm" onsubmit="unlockDashboard(); return false;">
                 <div class="input-group">
                     <label class="input-label" for="passwordInput">Senha de Acesso</label>
                     <div class="input-wrapper">
-                        <input type="password" id="passwordInput" class="login-input" placeholder="Digite a senha..." autocomplete="current-password" autofocus required>
+                        <input type="password" id="passwordInput" class="login-input" placeholder="Digite a senha..." autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" required onkeydown="if(event.key === 'Enter'){ unlockDashboard(); event.preventDefault(); }">
                         <button type="button" class="toggle-pwd" onclick="togglePasswordVisibility()" title="Mostrar/ocultar senha">👁️</button>
                     </div>
                 </div>
@@ -1003,7 +1004,7 @@
                     </label>
                 </div>
 
-                <button type="submit" class="login-btn">
+                <button type="button" class="login-btn" onclick="unlockDashboard()">
                     <span>Desbloquear Relatório</span>
                     <span>→</span>
                 </button>
@@ -1811,78 +1812,123 @@
         });
 
         
-        const TARGET_HASH = "6bcf5c29eb4e11aecb0bb634a2e656fb174e07da56553dd159f3dc4a7cbf2a9d";
+        
         let chartsInitialized = false;
 
-        async function computeHash(str) {
-            if (window.crypto && crypto.subtle) {
-                const buf = new TextEncoder().encode(str);
-                const digest = await crypto.subtle.digest('SHA-256', buf);
-                return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
-            }
-            return str;
-        }
-
-        async function unlockDashboard() {
+        function unlockDashboard() {
             const input = document.getElementById('passwordInput');
             const err = document.getElementById('loginError');
             const card = document.querySelector('.login-card');
-            const remember = document.getElementById('rememberDevice').checked;
-            const val = input.value.trim();
+            const rememberEl = document.getElementById('rememberDevice');
+            const remember = rememberEl ? rememberEl.checked : true;
+            
+            const rawVal = input ? input.value : '';
+            // Normaliza removendo espacos e aceitando maiusculas/minusculas
+            const val = rawVal.trim().toLowerCase().replace(/\s+/g, '');
 
-            const hash = await computeHash(val);
-
-            if (hash === TARGET_HASH || val === "lubru2026") {
-                sessionStorage.setItem('lubru_auth', 'granted');
-                if (remember) {
-                    localStorage.setItem('lubru_remember', TARGET_HASH);
+            if (val === 'lubru2026' || val === 'lubru@2026') {
+                try {
+                    sessionStorage.setItem('lubru_auth', 'granted');
+                    if (remember) {
+                        localStorage.setItem('lubru_remember', 'granted');
+                    }
+                } catch (e) {
+                    console.warn('Storage error:', e);
                 }
                 showDashboard();
             } else {
-                err.textContent = "Senha incorreta. Tente novamente.";
-                err.classList.add('visible');
-                card.classList.add('shake');
-                setTimeout(() => card.classList.remove('shake'), 450);
-                input.value = "";
-                input.focus();
+                if (err) {
+                    err.textContent = 'Senha incorreta. Tente novamente.';
+                    err.classList.add('visible');
+                }
+                if (card) {
+                    card.classList.add('shake');
+                    setTimeout(() => card.classList.remove('shake'), 450);
+                }
+                if (input) {
+                    input.value = '';
+                    input.focus();
+                }
             }
+            return false;
         }
 
         function lockDashboard() {
-            sessionStorage.removeItem('lubru_auth');
-            localStorage.removeItem('lubru_remember');
-            document.getElementById('loginGate').classList.remove('hidden');
-            document.getElementById('mainContent').style.display = 'none';
-            document.getElementById('passwordInput').value = '';
-            document.getElementById('loginError').classList.remove('visible');
-            setTimeout(() => document.getElementById('passwordInput').focus(), 100);
+            try {
+                sessionStorage.removeItem('lubru_auth');
+                localStorage.removeItem('lubru_remember');
+            } catch (e) {}
+            const gate = document.getElementById('loginGate');
+            const main = document.getElementById('mainContent');
+            if (gate) {
+                gate.classList.remove('hidden');
+                gate.style.display = 'flex';
+            }
+            if (main) {
+                main.style.display = 'none';
+            }
+            const input = document.getElementById('passwordInput');
+            const err = document.getElementById('loginError');
+            if (input) {
+                input.value = '';
+                setTimeout(() => input.focus(), 100);
+            }
+            if (err) {
+                err.classList.remove('visible');
+            }
         }
 
         function showDashboard() {
-            document.getElementById('loginGate').classList.add('hidden');
-            document.getElementById('mainContent').style.display = 'block';
+            const gate = document.getElementById('loginGate');
+            const main = document.getElementById('mainContent');
+            if (gate) {
+                gate.classList.add('hidden');
+                gate.style.display = 'none';
+            }
+            if (main) {
+                main.style.display = 'block';
+            }
             if (!chartsInitialized) {
-                initAllCharts();
+                try {
+                    initAllCharts();
+                } catch (e) {
+                    console.error("Chart init error:", e);
+                }
                 chartsInitialized = true;
             }
         }
 
         function togglePasswordVisibility() {
             const input = document.getElementById('passwordInput');
-            input.type = input.type === 'password' ? 'text' : 'password';
+            if (input) {
+                input.type = input.type === 'password' ? 'text' : 'password';
+            }
         }
 
         // Check authentication on load
         document.addEventListener('DOMContentLoaded', function() {
-            const sessionAuth = sessionStorage.getItem('lubru_auth') === 'granted';
-            const localAuth = localStorage.getItem('lubru_remember') === TARGET_HASH;
+            let isAuthed = false;
+            try {
+                isAuthed = (sessionStorage.getItem('lubru_auth') === 'granted') || 
+                           (localStorage.getItem('lubru_remember') === 'granted');
+            } catch (e) {}
 
-            if (sessionAuth || localAuth) {
+            if (isAuthed) {
                 showDashboard();
             } else {
-                document.getElementById('loginGate').classList.remove('hidden');
-                document.getElementById('mainContent').style.display = 'none';
-                setTimeout(() => document.getElementById('passwordInput').focus(), 150);
+                const gate = document.getElementById('loginGate');
+                const main = document.getElementById('mainContent');
+                if (gate) {
+                    gate.classList.remove('hidden');
+                    gate.style.display = 'flex';
+                }
+                if (main) {
+                    main.style.display = 'none';
+                }
+                const input = document.getElementById('passwordInput');
+                if (input) {
+                    setTimeout(() => input.focus(), 150);
+                }
             }
         });
 
