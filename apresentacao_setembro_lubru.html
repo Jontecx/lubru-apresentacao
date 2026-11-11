@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apresentação: Performance Setembro | Lubru Odontologia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-color: #050508;
+            --surface-color: rgba(20, 20, 28, 0.65);
+            --surface-card: rgba(26, 26, 38, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-primary: #00F0FF;
+            --accent-secondary: #7000FF;
+            --accent-meta: #1877F2;
+            --accent-insta: #E1306C;
+            --accent-success: #00FF88;
+            --accent-warning: #FFB800;
+            --text-main: #FFFFFF;
+            --text-muted: #9E9EB3;
+            --glass-blur: blur(18px);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(112, 0, 255, 0.12), transparent 30%),
+                radial-gradient(circle at 90% 15%, rgba(0, 240, 255, 0.12), transparent 28%),
+                radial-gradient(circle at 50% 60%, rgba(24, 119, 242, 0.08), transparent 35%),
+                radial-gradient(circle at 80% 85%, rgba(0, 255, 136, 0.08), transparent 30%);
+            background-attachment: fixed;
+            line-height: 1.6;
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-success));
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+
+        /* Header & Nav */
+        header {
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(5, 5, 8, 0.85);
+            backdrop-filter: var(--glass-blur);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .tecx-badge {
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: -0.5px;
+        }
+
+        .client-name {
+            color: var(--text-muted);
+            font-weight: 400;
+            font-size: 1.1rem;
+            border-left: 2px solid var(--border-color);
+            padding-left: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .client-name strong {
+            color: #FFFFFF;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.88rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .badge-period {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--accent-primary);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .badge-period::before {
+            content: '';
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
+        }
+
+        /* Sections */
+        section {
+            padding: 4.5rem 5%;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .section-header {
+            margin-bottom: 2.8rem;
+        }
+
+        .section-tag {
+            text-transform: uppercase;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 0.6rem;
+            display: inline-block;
+        }
+
+        .tag-omni { color: var(--accent-success); }
+        .tag-meta { color: var(--accent-meta); }
+        .tag-google { color: var(--accent-primary); }
+        .tag-strategy { color: var(--accent-secondary); }
+
+        .section-title {
+            font-size: 2.6rem;
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 0.8rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 750px;
+        }
+
+        .highlight-cyan { color: var(--accent-primary); }
+        .highlight-purple { color: var(--accent-secondary); }
+        .highlight-green { color: var(--accent-success); }
+        .highlight-blue { color: var(--accent-meta); }
+
+        /* Grid Containers */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.8rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 992px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Glass Cards */
+        .glass-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.2rem;
+            backdrop-filter: var(--glass-blur);
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--card-glow, var(--accent-primary)), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            background: rgba(32, 32, 48, 0.85);
+            border-color: rgba(255, 255, 255, 0.16);
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+        }
+
+        .glass-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .card-kpi {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+            display: inline-block;
+        }
+
+        .kpi-value {
+            font-size: 2.7rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 0.4rem;
+            background: linear-gradient(135deg, #FFF, #D0D0E0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .kpi-value.glow-green {
+            background: linear-gradient(135deg, #A8FFD3, #00FF88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 25px rgba(0, 255, 136, 0.3);
+        }
+
+        .kpi-value.glow-cyan {
+            background: linear-gradient(135deg, #B5F8FF, #00F0FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .kpi-value.glow-blue {
+            background: linear-gradient(135deg, #B2D7FF, #1877F2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .kpi-value.glow-purple {
+            background: linear-gradient(135deg, #DDB6FF, #7000FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .card-subtext {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* Banner Feedback WhatsApp */
+        .whatsapp-banner {
+            background: linear-gradient(135deg, rgba(7, 36, 26, 0.8), rgba(16, 24, 38, 0.85));
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 24px;
+            padding: 2.2rem;
+            backdrop-filter: var(--glass-blur);
+            margin-bottom: 2.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .whatsapp-banner::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 255, 136, 0.15), transparent 70%);
+            pointer-events: none;
+        }
+
+        .chat-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 1.2rem;
+        }
+
+        .chat-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #111;
+            border: 2px solid var(--accent-success);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: var(--accent-success);
+            font-size: 1.2rem;
+        }
+
+        .chat-info h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .chat-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .chat-bubble-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            max-width: 720px;
+        }
+
+        .chat-bubble {
+            background: rgba(30, 48, 40, 0.9);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            border-radius: 16px;
+            border-top-left-radius: 4px;
+            padding: 1rem 1.4rem;
+            color: #FFFFFF;
+            font-size: 1rem;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        .chat-bubble .timestamp {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: right;
+            margin-top: 0.4rem;
+            display: block;
+        }
+
+        .chat-bubble.sent {
+            align-self: flex-end;
+            background: rgba(24, 40, 60, 0.85);
+            border-color: rgba(0, 240, 255, 0.25);
+            border-top-left-radius: 16px;
+            border-top-right-radius: 4px;
+        }
+
+        /* Funnel Steps */
+        .funnel-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 900px) {
+            .funnel-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .funnel-step {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 1.6rem;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .funnel-step:hover {
+            transform: translateY(-4px);
+        }
+
+        .funnel-number {
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .funnel-val {
+            font-size: 2.1rem;
+            font-weight: 800;
+            margin-bottom: 0.3rem;
+        }
+
+        .funnel-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .funnel-rate {
+            display: inline-block;
+            margin-top: 0.8rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 12px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            background: rgba(0, 255, 136, 0.12);
+            color: var(--accent-success);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        /* Tables */
+        .table-container {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            backdrop-filter: var(--glass-blur);
+            padding: 1.8rem;
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1.1rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+        }
+
+        .tag-green {
+            background: rgba(0, 255, 136, 0.12);
+            color: var(--accent-success);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .tag-blue {
+            background: rgba(24, 119, 242, 0.12);
+            color: #60A5FA;
+            border: 1px solid rgba(24, 119, 242, 0.3);
+        }
+
+        .tag-cyan {
+            background: rgba(0, 240, 255, 0.12);
+            color: var(--accent-primary);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
+        .tag-purple {
+            background: rgba(112, 0, 255, 0.15);
+            color: #C084FC;
+            border: 1px solid rgba(112, 0, 255, 0.35);
+        }
+
+        /* Charts */
+        .chart-wrapper {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            backdrop-filter: var(--glass-blur);
+            padding: 2rem;
+            height: 420px;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        /* Channel Comparison Card */
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (max-width: 800px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .channel-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            padding: 2.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .channel-card.google {
+            border-top: 3px solid var(--accent-primary);
+        }
+
+        .channel-card.meta {
+            border-top: 3px solid var(--accent-meta);
+        }
+
+        .channel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .channel-header h3 {
+            font-size: 1.4rem;
+            font-weight: 800;
+        }
+
+        .channel-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .channel-metric-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1rem;
+            border-radius: 14px;
+        }
+
+        .channel-metric-box span {
+            display: block;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.2rem;
+        }
+
+        .channel-metric-box strong {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .channel-role {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            border-top: 1px solid var(--border-color);
+            padding-top: 1rem;
+        }
+
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            background: rgba(5, 5, 8, 0.95);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="scroll-progress" id="progressBar"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <div class="tecx-badge">TECX CONSULTORIA</div>
+            <div class="client-name">
+                <span>Cliente:</span> <strong>Lubru Odontologia</strong>
+            </div>
+        </div>
+        
+        <nav class="nav-links">
+            <a href="#visao-geral">Visão Consolidada</a>
+            <a href="#meta-ads">Meta Ads</a>
+            <a href="#google-ads">Google Ads</a>
+            <a href="#sinergia">Sinergia de Canais</a>
+            <a href="#estrategia">Plano Outubro</a>
+        </nav>
+
+        <div>
+            <span class="badge-period">Setembro / 2026 (Consolidado)</span>
+        </div>
+    </header>
+
+    <!-- SECTION 1: Visão Consolidada & Funil Completo -->
+    <section id="visao-geral">
+        <div class="section-header">
+            <span class="section-tag tag-omni">Ecossistema Completo de Crescimento</span>
+            <h1 class="section-title">Performance Consolidada <br><span class="highlight-green">Setembro de 2026</span></h1>
+            <p class="section-subtitle">
+                Cruzamento integrado de tráfego pago (Google Ads + Meta Ads) com o retorno comercial real reportado pela clínica Lubru Odontologia.
+            </p>
+        </div>
+
+        <!-- 4 Top Cards Consolidado -->
+        <div class="grid-container">
+            <div class="glass-card card-kpi" style="--card-glow: #7000FF;">
+                <div class="card-icon">💰</div>
+                <div class="kpi-value glow-purple">R$ 2.727,72</div>
+                <h3 class="card-title">Investimento Total</h3>
+                <span class="card-subtext">Google (R$ 1.195) + Meta (R$ 1.532)</span>
+            </div>
+
+            <div class="glass-card card-kpi" style="--card-glow: #00F0FF;">
+                <div class="card-icon">💬</div>
+                <div class="kpi-value glow-cyan">141</div>
+                <h3 class="card-title">Oportunidades Geradas</h3>
+                <span class="card-subtext">66 Leads Google + 75 Direct/Whats Meta</span>
+            </div>
+
+            <div class="glass-card card-kpi" style="--card-glow: #00FF88;">
+                <div class="card-icon">📅</div>
+                <div class="kpi-value glow-green">35</div>
+                <h3 class="card-title">Consultas Marcadas</h3>
+                <span class="card-subtext">31 diretas dos anúncios + 4 indicações</span>
+            </div>
+
+            <div class="glass-card card-kpi" style="--card-glow: #00FF88;">
+                <div class="card-icon">🏆</div>
+                <div class="kpi-value glow-green">13</div>
+                <h3 class="card-title">Pacientes Fechados</h3>
+                <span class="card-subtext">Confirmados pela clínica via Leads</span>
+            </div>
+        </div>
+
+        <!-- Sub-KPIs de Eficiência -->
+        <div class="grid-container" style="margin-top: 1rem;">
+            <div class="glass-card" style="padding: 1.6rem 2rem;">
+                <div class="card-title" style="font-size: 0.85rem;">Custo Médio por Lead (CPL Geral)</div>
+                <div style="font-size: 1.9rem; font-weight: 800; color: var(--accent-primary); margin: 0.2rem 0;">R$ 19,35</div>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Custo combinado por contato qualificado gerado.</p>
+            </div>
+
+            <div class="glass-card" style="padding: 1.6rem 2rem;">
+                <div class="card-title" style="font-size: 0.85rem;">Custo por Consulta Marcada (Leads)</div>
+                <div style="font-size: 1.9rem; font-weight: 800; color: #FFF; margin: 0.2rem 0;">R$ 87,99</div>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Investimento para colocar 1 paciente na agenda.</p>
+            </div>
+
+            <div class="glass-card" style="padding: 1.6rem 2rem;">
+                <div class="card-title" style="font-size: 0.85rem;">Taxa de Fechamento na Clínica</div>
+                <div style="font-size: 1.9rem; font-weight: 800; color: var(--accent-success); margin: 0.2rem 0;">41,9%</div>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">13 contratos fechados entre 31 consultas de leads.</p>
+            </div>
+
+            <div class="glass-card" style="padding: 1.6rem 2rem;">
+                <div class="card-title" style="font-size: 0.85rem;">CAC Médio (Custo por Paciente Fechado)</div>
+                <div style="font-size: 1.9rem; font-weight: 800; color: var(--accent-success); margin: 0.2rem 0;">R$ 209,82</div>
+                <p style="font-size: 0.82rem; color: var(--text-muted);">Retorno extremo em odontologia de alto ticket.</p>
+            </div>
+        </div>
+
+        <!-- Funil Visual de Conversão Real -->
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.2rem; color: #FFF;">
+            📊 Jornada do Lead: Da Atração ao Contrato Fechado
+        </h3>
+
+        <div class="funnel-container">
+            <div class="funnel-step">
+                <div class="funnel-number">Etapa 1 • Tráfego</div>
+                <div class="funnel-val glow-cyan">141</div>
+                <div class="funnel-label">Oportunidades Iniciadas</div>
+                <span class="funnel-rate" style="background: rgba(0, 240, 255, 0.1); color: var(--accent-primary); border-color: rgba(0, 240, 255, 0.3);">
+                    100% Topo/Meio
+                </span>
+            </div>
+
+            <div class="funnel-step">
+                <div class="funnel-number">Etapa 2 • Triagem</div>
+                <div class="funnel-val glow-blue">35</div>
+                <div class="funnel-label">Consultas Agendadas</div>
+                <span class="funnel-rate">
+                    24,8% Taxa de Agendamento
+                </span>
+            </div>
+
+            <div class="funnel-step">
+                <div class="funnel-number">Etapa 3 • Origem Leads</div>
+                <div class="funnel-val glow-purple">31</div>
+                <div class="funnel-label">Consultas Diretas de Anúncios</div>
+                <span class="funnel-rate" style="background: rgba(112, 0, 255, 0.1); color: #C084FC; border-color: rgba(112, 0, 255, 0.3);">
+                    + 4 Indicações da Marca
+                </span>
+            </div>
+
+            <div class="funnel-step" style="border-color: rgba(0, 255, 136, 0.4); background: rgba(0, 255, 136, 0.05);">
+                <div class="funnel-number" style="color: var(--accent-success);">Etapa 4 • Venda / Fechamento</div>
+                <div class="funnel-val glow-green">13</div>
+                <div class="funnel-label">Pacientes com Tratamento Fechado</div>
+                <span class="funnel-rate">
+                    41,9% Conversão na Cadeira
+                </span>
+            </div>
+        </div>
+
+        <div class="glass-card" style="margin-top: 1rem; border-left: 4px solid var(--accent-success);">
+            <h4 style="font-size: 1.1rem; color: #FFF; margin-bottom: 0.5rem;">💡 Leitura Estratégica do Resultado Comercial:</h4>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+                Com um Custo de Aquisição de Cliente (CAC) de apenas <strong style="color: #FFF;">R$ 209,82</strong> por tratamento fechado, as campanhas entregaram uma lucratividade excepcional. Em odontologia — onde o ticket médio de procedimentos como implantes, próteses, clareamento, lentes ou restaurações costuma variar de R$ 1.500 a mais de R$ 15.000 —, esse investimento se paga com sobra logo nos primeiros atendimentos, demonstrando alta qualificação da audiência impactada.
+            </p>
+        </div>
+    </section>
+
+    <!-- SECTION 3: Performance Meta Ads (Extraída das Imagens) -->
+    <section id="meta-ads">
+        <div class="section-header">
+            <span class="section-tag tag-meta">Meta Ads (Instagram & Facebook)</span>
+            <h2 class="section-title">Resultados <span class="highlight-blue">Meta Ads</span></h2>
+            <p class="section-subtitle">
+                Dados oficiais extraídos do Gerenciador de Anúncios da Meta no período de 01 a 30 de Setembro de 2026.
+            </p>
+        </div>
+
+        <!-- Meta KPIs -->
+        <div class="grid-container">
+            <div class="glass-card card-kpi" style="--card-glow: #1877F2;">
+                <div class="card-icon">💳</div>
+                <div class="kpi-value glow-blue">R$ 1.532,62</div>
+                <h3 class="card-title">Valor Total Gasto</h3>
+                <span class="card-subtext">3 campanhas ativas no período</span>
+            </div>
+
+            <div class="glass-card card-kpi" style="--card-glow: #00F0FF;">
+                <div class="card-icon">📥</div>
+                <div class="kpi-value glow-cyan">75</div>
+                <h3 class="card-title">Conversas Iniciadas</h3>
+                <span class="card-subtext">Custo por Mensagem: R$ 12,34</span>
+            </div>
+
+            <div class="glass-card card-kpi" style="--card-glow: #E1306C;">
+                <div class="card-icon">📸</div>
+                <div class="kpi-value" style="color: #FF5E97; -webkit-text-fill-color: #FF5E97;">786</div>
+                <h3 class="card-title">Visitas ao Perfil Insta</h3>
+                <span class="card-subtext">Custo por Visita: R$ 0,39</span>
+            </div>
+
+            <div class="glass-card card-kpi" style="--card-glow: #7000FF;">
+                <div class="card-icon">📢</div>
+                <div class="kpi-value glow-purple">53.000</div>
+                <h3 class="card-title">Contas Alcançadas</h3>
+                <span class="card-subtext">CPM: R$ 5,70 a cada 1.000 contas</span>
+            </div>
+        </div>
+
+        <!-- Tabela Campanhas Meta -->
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 1rem; color: #FFF;">
+            Detalhamento por Campanha no Meta Ads (01 a 30 Set)
+        </h3>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome da Campanha</th>
+                        <th>Objetivo</th>
+                        <th>Status</th>
+                        <th>Resultados Obtidos</th>
+                        <th>Custo por Resultado</th>
+                        <th>Valor Usado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: 600; color: #FFF;">
+                            Campanha de mensagens - 29.08
+                        </td>
+                        <td><span class="tag tag-cyan">Engajamento / Mensagens</span></td>
+                        <td><span class="tag tag-green">● Ativo</span></td>
+                        <td style="font-weight: 800; color: var(--accent-primary); font-size: 1.1rem;">
+                            75 conversas iniciadas
+                        </td>
+                        <td style="font-weight: 600;">R$ 12,34 / conversa</td>
+                        <td style="font-weight: 700; color: #FFF;">R$ 925,70</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600; color: #FFF;">
+                            Campanha de crescimento Insta- 29.08
+                        </td>
+                        <td><span class="tag tag-blue">Tráfego / Perfil Instagram</span></td>
+                        <td><span class="tag tag-green">● Ativo</span></td>
+                        <td style="font-weight: 800; color: #60A5FA; font-size: 1.1rem;">
+                            786 visitas ao perfil
+                        </td>
+                        <td style="font-weight: 600;">R$ 0,39 / visita</td>
+                        <td style="font-weight: 700; color: #FFF;">R$ 304,52</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600; color: #FFF;">
+                            RECONHECIMENTO - 21.08 - ABO
+                        </td>
+                        <td><span class="tag tag-purple">Reconhecimento de Marca</span></td>
+                        <td><span class="tag tag-green">● Ativo</span></td>
+                        <td style="font-weight: 800; color: #C084FC; font-size: 1.1rem;">
+                            53 mil de alcance
+                        </td>
+                        <td style="font-weight: 600;">R$ 5,70 CPM</td>
+                        <td style="font-weight: 700; color: #FFF;">R$ 302,40</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr style="background: rgba(255, 255, 255, 0.03); font-weight: 800;">
+                        <td colspan="5" style="text-align: right; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-size: 0.85rem;">
+                            Total Investido no Meta Ads:
+                        </td>
+                        <td style="font-size: 1.15rem; color: var(--accent-success);">
+                            R$ 1.532,62
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+
+        <!-- Meta Insight Cards -->
+        <div class="grid-3">
+            <div class="glass-card">
+                <div class="card-icon">⚡</div>
+                <h4 style="font-size: 1.05rem; color: #FFF; margin-bottom: 0.6rem;">Foco em Conversão Rápida</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    <strong>60,4% da verba Meta</strong> foi alocada diretamente para início de conversas, gerando 75 pessoas em contato com a equipe de atendimento por um custo médio de R$ 12,34.
+                </p>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-icon">📈</div>
+                <h4 style="font-size: 1.05rem; color: #FFF; margin-bottom: 0.6rem;">Nutrição do Instagram</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    Com apenas R$ 304,52, levamos <strong>786 potenciais pacientes</strong> para o perfil do Instagram da clínica a míseros R$ 0,39 cada, aquecendo autoridade e seguidores locais.
+                </p>
+            </div>
+
+            <div class="glass-card">
+                <div class="card-icon">🌐</div>
+                <h4 style="font-size: 1.05rem; color: #FFF; margin-bottom: 0.6rem;">Presença de Marca em Atibaia</h4>
+                <p style="color: var(--text-muted); font-size: 0.9rem;">
+                    <strong>53.000 pessoas</strong> viram a marca Lubru na linha do tempo, criando o efeito de <i>"a clínica de odontologia mais lembrada da cidade"</i> por apenas R$ 5,70 por mil pessoas.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Performance Google Ads (Dados Mantidos) -->
+    <section id="google-ads">
+        <div class="section-header">
+            <span class="section-tag tag-google">Google Ads (Rede de Pesquisa)</span>
+            <h2 class="section-title">Performance Global <span class="highlight-cyan">Google Ads</span></h2>
+            <p class="section-subtitle">
+                Visão consolidada do tráfego e conversões de pesquisa do dia 01 ao dia 30 de Setembro de 2026.
+            </p>
+        </div>
+        
+        <div class="grid-container">
+            <div class="glass-card card-kpi" style="--card-glow: #00F0FF;">
+                <div class="card-icon">💳</div>
+                <div class="kpi-value glow-cyan">R$ 1.195,10</div>
+                <h3 class="card-title">Investimento Google</h3>
+                <span class="card-subtext">Total investido no mês</span>
+            </div>
+            <div class="glass-card card-kpi" style="--card-glow: #00FF88;">
+                <div class="card-icon">🎯</div>
+                <div class="kpi-value glow-green">66</div>
+                <h3 class="card-title">Conversões Totais</h3>
+                <span class="card-subtext">Ações valiosas no site / WhatsApp</span>
+            </div>
+            <div class="glass-card card-kpi" style="--card-glow: #00F0FF;">
+                <div class="card-icon">🏷️</div>
+                <div class="kpi-value glow-cyan">R$ 18,10</div>
+                <h3 class="card-title">CPA Médio</h3>
+                <span class="card-subtext">Custo por conversão</span>
+            </div>
+            <div class="glass-card card-kpi" style="--card-glow: #7000FF;">
+                <div class="card-icon">🖱️</div>
+                <div class="kpi-value glow-purple">555</div>
+                <h3 class="card-title">Cliques Totais</h3>
+                <span class="card-subtext">Tráfego qualificado de busca</span>
+            </div>
+        </div>
+
+        <!-- Campanhas Google -->
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 1rem; color: #FFF;">
+            Análise por Campanha no Google Ads
+        </h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nome da Campanha</th>
+                        <th>Status</th>
+                        <th>Custo</th>
+                        <th>Conversões</th>
+                        <th>Custo / Conv.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: 600; color: #FFF;">#BASE [LOCAL] [SEARCH]</td>
+                        <td><span class="tag tag-green">Ativa</span></td>
+                        <td>R$ 733,25</td>
+                        <td style="font-weight: 800; color: #FFF;">57,00</td>
+                        <td style="color: var(--accent-primary); font-weight: 700;">R$ 12,86</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600; color: #FFF;">#LUBRU [IMPLANTE] [SEARCH]</td>
+                        <td><span class="tag tag-green">Ativa</span></td>
+                        <td>R$ 461,85</td>
+                        <td style="font-weight: 800; color: #FFF;">9,00</td>
+                        <td style="color: var(--accent-primary); font-weight: 700;">R$ 51,32</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Série Temporal (Gráfico Original Mantido) -->
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 0.5rem; color: #FFF;">
+            Evolução Diária de Cliques e Conversões (Google Search)
+        </h3>
+        <p class="section-subtitle" style="margin-bottom: 1.2rem;">Acompanhamento diário do volume de tráfego do dia 01 ao dia 30 de Setembro.</p>
+        
+        <div class="chart-wrapper">
+            <canvas id="performanceChart"></canvas>
+        </div>
+
+        <!-- Palavras-chave Google (Mantidas) -->
+        <h3 style="font-size: 1.25rem; font-weight: 700; margin: 1.5rem 0 0.5rem; color: #FFF;">
+            Top 10 Palavras-chave no Google Ads
+        </h3>
+        <p class="section-subtitle" style="margin-bottom: 1.2rem;">Termos que mais consumiram verba e geraram conversões em Setembro.</p>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Palavra-chave</th>
+                        <th>Correspondência</th>
+                        <th>Custo</th>
+                        <th>Conversões</th>
+                        <th>CTR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: 600; color: var(--accent-primary);">dentista atibaia</td>
+                        <td>Ampla</td>
+                        <td>R$ 592,50</td>
+                        <td style="font-weight: 800; color: #FFF;">47,00</td>
+                        <td>4,62%</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">dentista em Atibaia</td>
+                        <td>Frase</td>
+                        <td>R$ 158,29</td>
+                        <td style="font-weight: 800; color: #FFF;">4,67</td>
+                        <td>5,11%</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">clinica odonto</td>
+                        <td>Frase</td>
+                        <td>R$ 120,38</td>
+                        <td style="font-weight: 800; color: #FFF;">4,00</td>
+                        <td>2,95%</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">Consultório Odontológico</td>
+                        <td>Frase</td>
+                        <td>R$ 87,17</td>
+                        <td style="font-weight: 800; color: #FFF;">0,00</td>
+                        <td>3,12%</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">dentista atibaia</td>
+                        <td>Exata</td>
+                        <td>R$ 78,01</td>
+                        <td style="font-weight: 800; color: #FFF;">6,00</td>
+                        <td>6,18%</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">protese dentista</td>
+                        <td>Frase</td>
+                        <td>R$ 54,92</td>
+                        <td style="font-weight: 800; color: #FFF;">0,33</td>
+                        <td>4,90%</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">implante dentário</td>
+                        <td>Frase</td>
+                        <td>R$ 18,56</td>
+                        <td style="font-weight: 800; color: #FFF;">0,00</td>
+                        <td>4,39%</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">odontologia estetica</td>
+                        <td>Frase</td>
+                        <td>R$ 16,86</td>
+                        <td style="font-weight: 800; color: #FFF;">0,00</td>
+                        <td>3,38%</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">dentista no centro atibaia</td>
+                        <td>Exata</td>
+                        <td>R$ 16,72</td>
+                        <td style="font-weight: 800; color: #FFF;">1,00</td>
+                        <td>5,22%</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 600;">clinica odontologica atibaia</td>
+                        <td>Exata</td>
+                        <td>R$ 14,69</td>
+                        <td style="font-weight: 800; color: #FFF;">1,00</td>
+                        <td>2,96%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- SECTION 5: Sinergia de Canais (Google vs Meta) -->
+    <section id="sinergia">
+        <div class="section-header">
+            <span class="section-tag tag-omni">Visão Estratégica Multicanal</span>
+            <h2 class="section-title">A Sinergia Entre <span class="highlight-cyan">Google</span> & <span class="highlight-blue">Meta Ads</span></h2>
+            <p class="section-subtitle">
+                Como os dois canais se complementam para alimentar o funil da Lubru Odontologia e gerar os 13 fechamentos.
+            </p>
+        </div>
+
+        <div class="comparison-grid">
+            <!-- Canal Google -->
+            <div class="channel-card google">
+                <div class="channel-header">
+                    <h3>Google Ads</h3>
+                    <span class="tag tag-cyan">Fundo de Funil (Intenção)</span>
+                </div>
+                
+                <div class="channel-metrics">
+                    <div class="channel-metric-box">
+                        <span>Investimento</span>
+                        <strong style="color: var(--accent-primary);">R$ 1.195,10</strong>
+                    </div>
+                    <div class="channel-metric-box">
+                        <span>Conversões</span>
+                        <strong style="color: #FFF;">66 ações</strong>
+                    </div>
+                    <div class="channel-metric-box">
+                        <span>Custo / Conv.</span>
+                        <strong style="color: var(--accent-primary);">R$ 18,10</strong>
+                    </div>
+                    <div class="channel-metric-box">
+                        <span>Volume de Cliques</span>
+                        <strong style="color: #FFF;">555 cliques</strong>
+                    </div>
+                </div>
+
+                <div class="channel-role">
+                    <strong>Papel Estratégico:</strong> Captura a demanda ativa e urgente. Quem pesquisa "dentista atibaia" ou "implante dentário" no Google já está com a dor e procurando uma clínica imediata para marcar consulta.
+                </div>
+            </div>
+
+            <!-- Canal Meta -->
+            <div class="channel-card meta">
+                <div class="channel-header">
+                    <h3>Meta Ads (Insta/Face)</h3>
+                    <span class="tag tag-blue">Meio & Topo (Desejo + Reconhecimento)</span>
+                </div>
+                
+                <div class="channel-metrics">
+                    <div class="channel-metric-box">
+                        <span>Investimento</span>
+                        <strong style="color: #60A5FA;">R$ 1.532,62</strong>
+                    </div>
+                    <div class="channel-metric-box">
+                        <span>Conversas Iniciadas</span>
+                        <strong style="color: #FFF;">75 mensagens</strong>
+                    </div>
+                    <div class="channel-metric-box">
+                        <span>Custo / Mensagem</span>
+                        <strong style="color: #60A5FA;">R$ 12,34</strong>
+                    </div>
+                    <div class="channel-metric-box">
+                        <span>Visitas ao Perfil</span>
+                        <strong style="color: #FFF;">786 visitas</strong>
+                    </div>
+                </div>
+
+                <div class="channel-role">
+                    <strong>Papel Estratégico:</strong> Gera desejo visual (antes/depois, estrutura, vídeos da dentista), alcança 53 mil pessoas locais e abre canal imediato de conversa sem atrito no WhatsApp e Direct.
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráfico Comparativo de Contribuição -->
+        <div class="grid-2">
+            <div class="chart-wrapper" style="height: 340px;">
+                <h4 style="font-size: 1rem; color: #FFF; margin-bottom: 1rem; text-align: center;">Divisão de Investimento por Plataforma</h4>
+                <canvas id="budgetChart"></canvas>
+            </div>
+
+            <div class="chart-wrapper" style="height: 340px;">
+                <h4 style="font-size: 1rem; color: #FFF; margin-bottom: 1rem; text-align: center;">Oportunidades Geradas por Canal</h4>
+                <canvas id="leadsChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: Estratégia Outubro (Aprimorada com Dados Reais) -->
+    <section id="estrategia">
+        <div class="section-header">
+            <span class="section-tag tag-strategy">Direcionamento para Outubro</span>
+            <h2 class="section-title">Plano Tático para <span class="highlight-purple">Escalar Fechamentos</span></h2>
+            <p class="section-subtitle">
+                Com base nos 13 tratamentos fechados e no aprendizado das 35 consultas marcadas, implementamos melhorias para elevar a qualificação e ticket médio.
+            </p>
+        </div>
+        
+        <div class="grid-container">
+            <div class="glass-card" style="--card-glow: #7000FF;">
+                <div class="card-icon">🎯</div>
+                <h3 class="card-title" style="margin-bottom: 1rem; color: #FFF;">1. Inteligência de Público (Lookalike dos 13 Fechados)</h3>
+                <p style="color: var(--text-muted); font-size: 0.93rem; margin-bottom: 1rem;">
+                    Usar os dados dos 13 pacientes que realmente assinaram contrato e dos 31 agendados para criar Públicos Semelhantes (Lookalike) no Meta Ads e alimentar a lista de correspondência no Google.
+                </p>
+                <ul style="color: var(--text-muted); font-size: 0.88rem; list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 0.5rem;"><span style="color: var(--accent-success);">✓</span> Lookalike 1% e 2% dos contatos qualificados</li>
+                    <li style="margin-bottom: 0.5rem;"><span style="color: var(--accent-success);">✓</span> Aplicação das Regras de Valor na Meta (+25% conversões de alto valor)</li>
+                    <li><span style="color: var(--accent-success);">✓</span> Remarketing para os 786 visitantes do perfil</li>
+                </ul>
+            </div>
+            
+            <div class="glass-card" style="--card-glow: #00F0FF;">
+                <div class="card-icon">📍</div>
+                <h3 class="card-title" style="margin-bottom: 1rem; color: #FFF;">2. Trava Geográfica & Filtro Anti-Convênio</h3>
+                <p style="color: var(--text-muted); font-size: 0.93rem; margin-bottom: 1rem;">
+                    Blindar o investimento contra curiosos de outras regiões ou que buscam convênio popular, maximizando a taxa de conversão da recepção.
+                </p>
+                <ul style="color: var(--text-muted); font-size: 0.88rem; list-style: none; padding-left: 0;">
+                    <li style="margin-bottom: 0.5rem;"><span style="color: var(--accent-primary);">✓</span> Raio restrito: Atibaia + 15km</li>
+                    <li style="margin-bottom: 0.5rem;"><span style="color: var(--accent-primary);">✓</span> Termos negativados (amadeu, amor e saude, convenio)</li>
+                    <li><span style="color: var(--accent-primary);">✓</span> Avisos explícitos: <i>"Atendimento Exclusivo Particular"</i></li>
+                </ul>
+            </div>
+
+            <div class="glass-card" style="--card-glow: #00FF88;">
+                <div class="card-icon">💎</div>
+                <h3 class="card-title" style="margin-bottom: 1rem; color: #FFF;">3. Priorização de Alto Ticket</h3>
+                <p style="color: var(--text-muted); font-size: 0.93rem; margin-bottom: 1rem;">
+                    Aumentar o peso orçamentário nas campanhas focadas em procedimentos de alta margem (Implantes, Protocolo, Próteses e Estética Dental).
+                </p>
+                <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem;">
+                    <span class="tag tag-cyan">implante dentario atibaia</span>
+                    <span class="tag tag-purple">protese protocolo atibaia</span>
+                    <span class="tag tag-blue">lentes de contato dental</span>
+                    <span class="tag tag-green">carga imediata</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p style="margin-bottom: 0.5rem;">
+            Relatório Estratégico de Performance • <strong>Lubru Odontologia</strong>
+        </p>
+        <p style="font-size: 0.8rem; color: #6E6E85;">
+            Desenvolvido por <strong>TECX Consultoria</strong> • Tecnologia e Gestão de Tráfego de Alta Performance
+        </p>
+    </footer>
+
+    <script>
+        // Scroll Progress
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progressBar").style.width = scrolled + "%";
+        };
+
+        // Background Parallax Effect
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            document.body.style.backgroundPosition = `${x * 8}px ${y * 8}px`;
+        });
+
+        // Configuração Geral Chart.js
+        Chart.defaults.color = '#9E9EB3';
+        Chart.defaults.font.family = "'Outfit', sans-serif";
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 1. Gráfico Google Ads Série Temporal
+            const ctxPerf = document.getElementById('performanceChart').getContext('2d');
+            const labels = ['1 Set','2 Set','3 Set','4 Set','5 Set','6 Set','7 Set','8 Set','9 Set','10 Set','11 Set','12 Set','13 Set','14 Set','15 Set','16 Set','17 Set','18 Set','19 Set','20 Set','21 Set','22 Set','23 Set','24 Set','25 Set','26 Set','27 Set','28 Set','29 Set','30 Set'];
+            const cliques = [12, 25, 14, 13, 23, 21, 8, 29, 16, 15, 9, 9, 21, 28, 18, 22, 21, 26, 16, 23, 22, 24, 23, 18, 24, 14, 9, 29, 21, 22];
+            const conversoes = [1, 4, 4, 0, 4, 2, 1, 3, 2, 0, 0, 1, 0, 3, 2, 2, 7, 4, 2, 2, 2, 4, 2, 2, 2, 3, 0.33, 1.67, 2, 3];
+
+            new Chart(ctxPerf, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Cliques',
+                            data: cliques,
+                            borderColor: '#7000FF',
+                            backgroundColor: 'rgba(112, 0, 255, 0.1)',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#7000FF',
+                            fill: true,
+                            tension: 0.35,
+                            yAxisID: 'y'
+                        },
+                        {
+                            label: 'Conversões',
+                            data: conversoes,
+                            borderColor: '#00F0FF',
+                            backgroundColor: 'rgba(0, 240, 255, 0.12)',
+                            borderWidth: 2,
+                            pointBackgroundColor: '#00F0FF',
+                            fill: true,
+                            tension: 0.35,
+                            yAxisID: 'y1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#FFF',
+                                usePointStyle: true,
+                                boxWidth: 8
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(15, 15, 25, 0.95)',
+                            titleColor: '#FFF',
+                            bodyColor: '#A0A0B0',
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1,
+                            padding: 12
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.04)',
+                                drawBorder: false
+                            },
+                            ticks: { maxTicksLimit: 15 }
+                        },
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: {
+                                display: true,
+                                text: 'Cliques',
+                                color: '#7000FF'
+                            },
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.04)',
+                                drawBorder: false
+                            }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: {
+                                display: true,
+                                text: 'Conversões',
+                                color: '#00F0FF'
+                            },
+                            grid: {
+                                drawOnChartArea: false, 
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 2. Gráfico Donut de Investimento
+            const ctxBudget = document.getElementById('budgetChart').getContext('2d');
+            new Chart(ctxBudget, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Meta Ads (R$ 1.532,62)', 'Google Ads (R$ 1.195,10)'],
+                    datasets: [{
+                        data: [1532.62, 1195.10],
+                        backgroundColor: ['#1877F2', '#00F0FF'],
+                        borderWidth: 0,
+                        hoverOffset: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { color: '#FFF', boxWidth: 12, padding: 16 }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+
+            // 3. Gráfico de Barras: Oportunidades por Canal
+            const ctxLeads = document.getElementById('leadsChart').getContext('2d');
+            new Chart(ctxLeads, {
+                type: 'bar',
+                data: {
+                    labels: ['Google Ads', 'Meta (Mensagens)', 'Consultas Marcadas', 'Fechamentos'],
+                    datasets: [{
+                        label: 'Volume',
+                        data: [66, 75, 35, 13],
+                        backgroundColor: [
+                            'rgba(0, 240, 255, 0.7)',
+                            'rgba(24, 119, 242, 0.7)',
+                            'rgba(112, 0, 255, 0.7)',
+                            'rgba(0, 255, 136, 0.85)'
+                        ],
+                        borderColor: [
+                            '#00F0FF',
+                            '#1877F2',
+                            '#7000FF',
+                            '#00FF88'
+                        ],
+                        borderWidth: 1.5,
+                        borderRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false }
+                        },
+                        y: {
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
