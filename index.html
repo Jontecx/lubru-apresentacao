@@ -218,12 +218,141 @@
             margin-bottom: 2rem;
         }
 
+
+        /* Responsive Enhancements for Tablets and Smartphones */
         @media (max-width: 992px) {
             .grid-2, .grid-3 {
                 grid-template-columns: 1fr;
+                gap: 1.5rem;
             }
             .nav-links {
                 display: none;
+            }
+            .section-title {
+                font-size: 2.1rem;
+            }
+            .chart-wrapper {
+                height: 340px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0.9rem 4%;
+                flex-direction: column;
+                gap: 0.6rem;
+                align-items: center;
+                text-align: center;
+            }
+            .logo-container {
+                flex-direction: column;
+                gap: 0.35rem;
+            }
+            .client-name {
+                border-left: none;
+                padding-left: 0;
+                font-size: 0.95rem;
+            }
+            .badge-period {
+                font-size: 0.75rem;
+                padding: 0.25rem 0.8rem;
+            }
+            section {
+                padding: 3rem 4%;
+            }
+            .section-header {
+                margin-bottom: 2rem;
+            }
+            .section-title {
+                font-size: 1.75rem;
+                line-height: 1.25;
+            }
+            .section-subtitle {
+                font-size: 0.95rem;
+            }
+            .grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+            .glass-card {
+                padding: 1.4rem 1.1rem;
+                border-radius: 16px;
+            }
+            .card-icon {
+                font-size: 1.8rem;
+                margin-bottom: 0.4rem;
+            }
+            .kpi-value {
+                font-size: 1.95rem;
+            }
+            .card-title {
+                font-size: 0.85rem;
+            }
+            .delta-badge {
+                font-size: 0.72rem;
+                padding: 0.15rem 0.5rem;
+            }
+            .chart-wrapper {
+                height: 300px;
+                padding: 1.2rem 0.8rem;
+                border-radius: 16px;
+            }
+            .table-container {
+                padding: 1rem 0.6rem;
+                border-radius: 16px;
+                -webkit-overflow-scrolling: touch;
+            }
+            table {
+                min-width: 620px;
+            }
+            th, td {
+                padding: 0.8rem 0.7rem;
+                font-size: 0.82rem;
+            }
+            .alert-box {
+                flex-direction: column;
+                gap: 0.8rem;
+                padding: 1.2rem 1rem;
+                border-radius: 14px;
+            }
+            .alert-icon {
+                font-size: 1.5rem;
+            }
+            .channel-card {
+                padding: 1.4rem 1.1rem;
+            }
+            .channel-metrics {
+                gap: 0.7rem;
+            }
+            .channel-metric-val {
+                font-size: 1.35rem;
+            }
+            .strategy-step {
+                gap: 1rem;
+            }
+            .step-number {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+                border-radius: 10px;
+            }
+            .step-details h4 {
+                font-size: 1.05rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.55rem;
+            }
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            .channel-metrics {
+                grid-template-columns: 1fr;
+            }
+            .kpi-value {
+                font-size: 1.8rem;
             }
         }
 
@@ -1442,7 +1571,7 @@
                         }
                     },
                     scales: {
-                        x: { grid: { color: 'rgba(255, 255, 255, 0.04)' } },
+                        x: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { maxTicksLimit: 8, autoSkip: true, maxRotation: 0, font: { size: 10 } } },
                         y: {
                             type: 'linear',
                             position: 'left',
@@ -1513,7 +1642,7 @@
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: { grid: { display: false } },
+                        x: { grid: { display: false }, ticks: { maxTicksLimit: 8, autoSkip: true, maxRotation: 0, font: { size: 10 } } },
                         y: {
                             grid: { color: 'rgba(255, 255, 255, 0.05)' },
                             beginAtZero: true
@@ -1542,7 +1671,7 @@
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: { grid: { display: false } },
+                        x: { grid: { display: false }, ticks: { maxTicksLimit: 8, autoSkip: true, maxRotation: 0, font: { size: 10 } } },
                         y: { grid: { color: 'rgba(255, 255, 255, 0.04)' } }
                     }
                 }
@@ -1569,7 +1698,7 @@
                     maintainAspectRatio: false,
                     plugins: { legend: { display: false } },
                     scales: {
-                        x: { grid: { display: false } },
+                        x: { grid: { display: false }, ticks: { maxTicksLimit: 8, autoSkip: true, maxRotation: 0, font: { size: 10 } } },
                         y: { grid: { color: 'rgba(255, 255, 255, 0.04)' } }
                     }
                 }
