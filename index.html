@@ -728,9 +728,292 @@
             color: var(--text-muted);
             font-size: 0.88rem;
         }
+
+        /* Luxury Login Gate Overlay */
+        #loginGate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 99999;
+            background: #050508;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(112, 0, 255, 0.22), transparent 45%),
+                radial-gradient(circle at 80% 70%, rgba(0, 240, 255, 0.18), transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(24, 119, 242, 0.12), transparent 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            backdrop-filter: blur(25px);
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        #loginGate.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .login-card {
+            background: rgba(22, 22, 34, 0.88);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 24px;
+            padding: 2.8rem 2.4rem;
+            width: 100%;
+            max-width: 440px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 40px rgba(0, 240, 255, 0.12);
+            backdrop-filter: blur(25px);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-success));
+        }
+
+        .login-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.35rem 0.9rem;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid rgba(0, 240, 255, 0.25);
+            color: var(--accent-primary);
+            font-size: 0.72rem;
+            font-weight: 700;
+            border-radius: 20px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .login-icon-box {
+            width: 68px;
+            height: 68px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(112, 0, 255, 0.2), rgba(0, 240, 255, 0.2));
+            border: 1px solid rgba(0, 240, 255, 0.35);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1.4rem;
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.2);
+        }
+
+        .login-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 0.4rem;
+        }
+
+        .login-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 1.8rem;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 1.2rem;
+            text-align: left;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .login-input {
+            width: 100%;
+            background: rgba(10, 10, 18, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 14px;
+            padding: 0.95rem 3rem 0.95rem 1.1rem;
+            color: #FFFFFF;
+            font-size: 1rem;
+            font-family: 'Outfit', sans-serif;
+            outline: none;
+            transition: all 0.25s ease;
+        }
+
+        .login-input:focus {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.25);
+            background: rgba(15, 15, 25, 0.9);
+        }
+
+        .toggle-pwd {
+            position: absolute;
+            right: 12px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 6px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.2s;
+        }
+
+        .toggle-pwd:hover {
+            color: var(--accent-primary);
+        }
+
+        .remember-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .remember-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .remember-label input[type="checkbox"] {
+            accent-color: var(--accent-primary);
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            border: none;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #050508;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 1.05rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 8px 25px rgba(0, 240, 255, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 240, 255, 0.45);
+            filter: brightness(1.1);
+        }
+
+        .login-error {
+            color: var(--accent-danger);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            min-height: 20px;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .login-error.visible {
+            opacity: 1;
+        }
+
+        .shake {
+            animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .lock-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: var(--text-muted);
+            padding: 0.4rem 0.9rem;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: all 0.25s ease;
+        }
+
+        .lock-btn:hover {
+            background: rgba(255, 51, 102, 0.15);
+            border-color: rgba(255, 51, 102, 0.35);
+            color: var(--accent-danger);
+        }
+
     </style>
 </head>
 <body>
+    <!-- Luxury Login Gate Overlay -->
+    <div id="loginGate">
+        <div class="login-card">
+            <span class="login-badge">🛡️ TECX SECURITY • ACESSO RESTRITO</span>
+            <div class="login-icon-box">🔒</div>
+            <h2 class="login-title">Área da Diretoria</h2>
+            <p class="login-subtitle">Lubru Odontologia • Relatório de Inteligência & Tráfego Pago</p>
+            
+            <form id="loginForm" onsubmit="event.preventDefault(); unlockDashboard();">
+                <div class="input-group">
+                    <label class="input-label" for="passwordInput">Senha de Acesso</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="passwordInput" class="login-input" placeholder="Digite a senha..." autocomplete="current-password" autofocus required>
+                        <button type="button" class="toggle-pwd" onclick="togglePasswordVisibility()" title="Mostrar/ocultar senha">👁️</button>
+                    </div>
+                </div>
+
+                <div class="remember-row">
+                    <label class="remember-label">
+                        <input type="checkbox" id="rememberDevice" checked>
+                        <span>Lembrar neste dispositivo</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    <span>Desbloquear Relatório</span>
+                    <span>→</span>
+                </button>
+
+                <div id="loginError" class="login-error">Senha incorreta. Tente novamente.</div>
+            </form>
+        </div>
+    </div>
+
+    <div id="mainContent" style="display:none;">
     <div class="scroll-progress" id="progressBar"></div>
 
     <!-- Header -->
@@ -751,6 +1034,7 @@
             <a href="#demografia">Público & Busca</a>
             <a href="#estrategia">Plano Estratégico</a>
         </nav>
+        <button class="lock-btn" onclick="lockDashboard()" title="Bloquear relatório">🔒 Bloquear</button>
         <div class="badge-period">Outubro & Prévia Nov 2026</div>
     </header>
 
@@ -1515,6 +1799,7 @@
     <footer>
         <p>&copy; 2026 Tecx Consultoria • Inteligência Estratégica e Dominação Digital • Lubru Odontologia (Atibaia/SP)</p>
     </footer>
+    </div>
 
     <!-- Scripts de Gráficos -->
     <script>
@@ -1525,7 +1810,83 @@
             document.getElementById('progressBar').style.width = scrolled + '%';
         });
 
+        
+        const TARGET_HASH = "6bcf5c29eb4e11aecb0bb634a2e656fb174e07da56553dd159f3dc4a7cbf2a9d";
+        let chartsInitialized = false;
+
+        async function computeHash(str) {
+            if (window.crypto && crypto.subtle) {
+                const buf = new TextEncoder().encode(str);
+                const digest = await crypto.subtle.digest('SHA-256', buf);
+                return Array.from(new Uint8Array(digest)).map(b => b.toString(16).padStart(2, '0')).join('');
+            }
+            return str;
+        }
+
+        async function unlockDashboard() {
+            const input = document.getElementById('passwordInput');
+            const err = document.getElementById('loginError');
+            const card = document.querySelector('.login-card');
+            const remember = document.getElementById('rememberDevice').checked;
+            const val = input.value.trim();
+
+            const hash = await computeHash(val);
+
+            if (hash === TARGET_HASH || val === "lubru2026") {
+                sessionStorage.setItem('lubru_auth', 'granted');
+                if (remember) {
+                    localStorage.setItem('lubru_remember', TARGET_HASH);
+                }
+                showDashboard();
+            } else {
+                err.textContent = "Senha incorreta. Tente novamente.";
+                err.classList.add('visible');
+                card.classList.add('shake');
+                setTimeout(() => card.classList.remove('shake'), 450);
+                input.value = "";
+                input.focus();
+            }
+        }
+
+        function lockDashboard() {
+            sessionStorage.removeItem('lubru_auth');
+            localStorage.removeItem('lubru_remember');
+            document.getElementById('loginGate').classList.remove('hidden');
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('loginError').classList.remove('visible');
+            setTimeout(() => document.getElementById('passwordInput').focus(), 100);
+        }
+
+        function showDashboard() {
+            document.getElementById('loginGate').classList.add('hidden');
+            document.getElementById('mainContent').style.display = 'block';
+            if (!chartsInitialized) {
+                initAllCharts();
+                chartsInitialized = true;
+            }
+        }
+
+        function togglePasswordVisibility() {
+            const input = document.getElementById('passwordInput');
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        // Check authentication on load
         document.addEventListener('DOMContentLoaded', function() {
+            const sessionAuth = sessionStorage.getItem('lubru_auth') === 'granted';
+            const localAuth = localStorage.getItem('lubru_remember') === TARGET_HASH;
+
+            if (sessionAuth || localAuth) {
+                showDashboard();
+            } else {
+                document.getElementById('loginGate').classList.remove('hidden');
+                document.getElementById('mainContent').style.display = 'none';
+                setTimeout(() => document.getElementById('passwordInput').focus(), 150);
+            }
+        });
+
+        function initAllCharts() {
             Chart.defaults.color = '#9E9EB3';
             Chart.defaults.font.family = "'Outfit', sans-serif";
 
